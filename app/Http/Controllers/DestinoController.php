@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Destinos;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Symfony\Contracts\Service\Attribute\Required;
 
 class DestinoController extends Controller
 {
@@ -18,9 +19,16 @@ class DestinoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+   
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nome'=> 'Required',
+            'provincia' => 'Required',
+            'image_url'=> 'Required'
+
+        ]);
+        return Destinos::create($request->all());
     }
 
     /**
@@ -28,7 +36,7 @@ class DestinoController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return Destinos::find($id);
     }
 
     /**
