@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Destinos;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -12,7 +12,7 @@ class DestinoController extends Controller
      */
     public function index()
     {
-        //
+        return Destinos::all();
     }
 
     /**
