@@ -3,7 +3,7 @@ use App\Http\Controllers\DestinoController;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AuthController;
 use function Laravel\Prompts\search;
 
 /*
@@ -25,7 +25,7 @@ use function Laravel\Prompts\search;
 Route::get('/destinos',[DestinoController::class,'index']);
 // //Rota para listar um destino
 Route::get('/destinos/{id}',[DestinoController::class,'show']);
-
+Route::post('/register',[AuthController::class, 'register']);
 
 
 // //Rota Para acrescentar destinos
