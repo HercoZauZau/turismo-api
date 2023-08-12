@@ -16,14 +16,27 @@ use function Laravel\Prompts\search;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::get('/destinos/search/{nome}',[DestinoController::class, 'search']);
-Route::resource('destinos',DestinoController::class);
-// //Rota para listar todos destinos - Retorna o controller index
-// Route::get('/destinos',[DestinoController::class,'index']);
-// //Rota Para acrescentar destinos
-// Route::post('/destinos',[DestinoController::class, 'store']);
+
+//Rotas publicas
+
+
+//Route::resource('destinos',DestinoController::class);
+//Rota para listar todos destinos - Retorna o controller index
+Route::get('/destinos',[DestinoController::class,'index']);
 // //Rota para listar um destino
-// Route::get('/destino',[DestinoController::class,'show']);
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/destinos/{id}',[DestinoController::class,'show']);
+
+
+
+// //Rota Para acrescentar destinos
+
+
+
+
+//Rotas protegidas
+Route::group(['middleware' => ['auth:sanctum']], function () {
+ Route::get('/destinos/search/{nome}',[DestinoController::class, 'search']);
+  Route::post('/destinos',[DestinoController::class, 'store']);
+  Route::delete('/destinos/{id}',[DestinoController::class,'destroy']);
+  Route::put('/destinos/{id}',[DestinoController::class,'update']);
 });
