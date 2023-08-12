@@ -57,4 +57,12 @@ class DestinoController extends Controller
     {
         return Destinos::destroy($id);
     }
+    /**
+     * Search for a name
+     */
+    public function search(string $name)
+    {
+        return Destinos::where('nome', 'like', '%'.$name.'%' )->get();
+    }
+    
 }

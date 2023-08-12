@@ -4,6 +4,8 @@ use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use function Laravel\Prompts\search;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
+Route::get('/destinos/search/{nome}',[DestinoController::class, 'search']);
 Route::resource('destinos',DestinoController::class);
 // //Rota para listar todos destinos - Retorna o controller index
 // Route::get('/destinos',[DestinoController::class,'index']);
