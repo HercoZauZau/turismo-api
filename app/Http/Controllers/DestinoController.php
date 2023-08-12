@@ -44,7 +44,10 @@ class DestinoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $destino = Destinos::find($id);
+        $destino->update($request->all());
+        return $destino;
+
     }
 
     /**
@@ -52,6 +55,6 @@ class DestinoController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return Destinos::destroy($id);
     }
 }
