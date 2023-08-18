@@ -26,6 +26,7 @@ Route::get('/destinos',[DestinoController::class,'index']);
 // //Rota para listar um destino
 Route::get('/destinos/{id}',[DestinoController::class,'show']);
 Route::post('/register',[AuthController::class, 'register']);
+Route::post('/login',[AuthController::class, 'login']);
 
 
 // //Rota Para acrescentar destinos
