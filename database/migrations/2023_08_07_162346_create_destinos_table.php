@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('destinos', function (Blueprint $table) {
             $table->id(); 
             $table ->string("nome");
-            $table->string("provincia");
+            $table->unsignedBigInteger("provincia_id");
             $table  ->string("image_url");
             $table->timestamps();
+          $table->foreign('provincia_id')->references('id')->on('provincias');
+        
         });
     }
 
