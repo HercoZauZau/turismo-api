@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('destinos', function (Blueprint $table) {
             $table->id(); 
-            $table ->string("nome");
-            $table->unsignedBigInteger("provincia_id");
+            $table ->string("name");
+            $table->unsignedBigInteger("province_id");
             $table  ->string("image_url");
             $table->timestamps();
-          $table->foreign('provincia_id')->references('id')->on('provincias');
+          $table->foreign('province_id')->references('id')->on('provincias');
         
         });
     }

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('provincias', function (Blueprint $table) {
             $table->id();
-            $table->string('nome');
-            $table->string('descricao');
+            $table->string('name');
+            $table->string('desctiption');
             $table->timestamps();
         });
     }
