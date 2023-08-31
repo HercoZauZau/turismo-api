@@ -10,9 +10,10 @@ class provincia extends Model
     protected $fillable = [
         'name',
         'description',
+        'image_url',
     ];
     use HasFactory;
-    public function destinos(){
-        return $this-> hasMany(Destinos::class);
+    public function users(){
+        return $this-> hasMany(User::class);
     }
 }

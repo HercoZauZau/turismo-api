@@ -20,7 +20,11 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'user_type', // 'tourist' or 'guide' or 'admin'
+        'provincia_id',
+        'birth_day',
         'password',
+   
     ];
 
     /**
@@ -42,4 +46,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    public function provincias(){
+        return $this-> belongsTo(provincia::class);
+    }
 }

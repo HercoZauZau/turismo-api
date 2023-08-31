@@ -13,7 +13,5 @@ class Destinos extends Model
         'image_url',
     ];
     use HasFactory;
-    public function provincias(){
-        return $this-> belongsTo(provincia::class);
-    }
+   
 }

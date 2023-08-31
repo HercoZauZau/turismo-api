@@ -13,12 +13,18 @@ class AuthController extends Controller
     public function Register(Request $request){
         $fields = $request->validate([
             'name' =>'required|string',
+            'user_type' =>'required|string',
+            'birth_day' =>'nullable|date', // Allow null or valid date
+            'provincia_id' =>'nullable|string',
             'email' => 'required|string|unique:users,email',
             'password' => 'required|string|confirmed'
         ]);
         $user = User::create ([
             'name'=> $fields['name'],
             'email' => $fields['email'],
+            'user_type' => $fields['user_type'],
+           'provincia_id' => $fields['provincia_id'],
+           'birth_day' => $fields['birth_day'],
             'password' => bcrypt($fields['password'])
         ]);
         $token = $user->createToken('myAppToken')-> plainTextToken;
@@ -43,6 +49,17 @@ class AuthController extends Controller
               'message' => 'Wrong credentials'
           ],401);
       }
+
+      //If credentials are valid, retrieve the user_type from the database
+      $userType = $user->user_type;
+      
+      return response([
+          'message' => 'Authentication successful',
+          'user_type' => $userType
+      ], 200);
+
+
+      
         $token = $user->createToken('myapptoken')->plainTextToken;
         $response = [
             'user' => $user,
