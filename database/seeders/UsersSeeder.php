@@ -22,18 +22,18 @@ class UsersSeeder extends Seeder
                     'gender' => 'masculino',
                     'phone' => '123456789',
                     'email' => 'admin@gmail.com',
-                    'password' => bcrypt('password'),
+                    'password' => '12345',
           
                     'provincia_id' => 1,
                 ],
                 [
-                    'name' => 'Turista',
-                    'birth_day' => '1995-05-05',
+                    'name' => 'Turista Ze',
+                    'birth_day' => '2001-05-05',
                     'user_type' => 'turista',
                     'gender' => 'feminino',
                     'phone' => '987654321',
                     'email' => 'joaquim@gmail.com',
-                    'password' => bcrypt('password'),
+                    'password' => '12345',
                
                     'provincia_id' => 2,
                 ],
@@ -44,7 +44,7 @@ class UsersSeeder extends Seeder
                     'gender' => 'masculino',
                     'phone' => '555555555',
                     'email' => 'guia@gmail.com',
-                    'password' => bcrypt('password'),
+                    'password' => '12345',
                   
                     'provincia_id' => 3,
                 ],
