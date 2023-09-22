@@ -23,8 +23,8 @@ class DestinoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nome'=> 'Required',
-            'provincia' => 'Required',
+            'name'=> 'Required',
+            'province_id' => 'Required',
             'image_url'=> 'Required'
 
         ]);
@@ -62,7 +62,7 @@ class DestinoController extends Controller
      */
     public function search(string $name)
     {
-        return Destinos::where('nome', 'like', '%'.$name.'%' )->get();
+        return Destinos::where('name', 'like', '%'.$name.'%' )->get();
     }
     
 }

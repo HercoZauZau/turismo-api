@@ -27,7 +27,7 @@ Route::get('/destinos',[DestinoController::class,'index']);
 Route::get('/destinos/{id}',[DestinoController::class,'show']);
 Route::post('/register',[AuthController::class, 'register']);
 Route::post('/login',[AuthController::class, 'login']);
-
+Route::post('/destinos',[DestinoController::class, 'store']);
 //sssss
 // //Rota Para acrescentar destinos
 
@@ -37,7 +37,7 @@ Route::post('/login',[AuthController::class, 'login']);
 //Rotas protegidas
 Route::group(['middleware' => ['auth:sanctum']], function () {
  Route::get('/destinos/search/{nome}',[DestinoController::class, 'search']);
-  Route::post('/destinos',[DestinoController::class, 'store']);
+ 
   Route::delete('/destinos/{id}',[DestinoController::class,'destroy']);
   Route::put('/destinos/{id}',[DestinoController::class,'update']);
   Route::post('/logout',[AuthController::class, 'logout']);
