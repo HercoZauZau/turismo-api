@@ -4,6 +4,8 @@ use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PackageController;
+
 use function Laravel\Prompts\search;
 
 /*
@@ -41,5 +43,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
   Route::delete('/destinos/{id}',[DestinoController::class,'destroy']);
   Route::put('/destinos/{id}',[DestinoController::class,'update']);
   Route::post('/logout',[AuthController::class, 'logout']);
-
+  //Pacotes
+  Route::post('/addpackage',[PackageController::class, 'add']);
 });
