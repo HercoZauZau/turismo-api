@@ -10,8 +10,9 @@ class PackageController extends Controller
     {
         $request->validate([
             'title'=> 'Required',
+            'description'=> 'Required',
             'id_province' => 'Required',
-            'image_url'=> 'Required'
+            'id_guide'=> 'Required'
 
         ]);
         return PackageModel::create($request->all());

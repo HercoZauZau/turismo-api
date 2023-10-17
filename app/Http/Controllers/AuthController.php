@@ -52,10 +52,14 @@ class AuthController extends Controller
 
       //If credentials are valid, retrieve the user_type from the database
       $userType = $user->user_type;
+      //$guideID = $user->id;
       
       return response([
           'message' => 'Authentication successful',
-          'user_type' => $userType
+          'user_type' => $userType,
+          //
+          'user_id' => $userType
+
       ], 200);
 
 
@@ -67,10 +71,14 @@ class AuthController extends Controller
         ];
         return response ($response, 201);
     } 
+
+
+  
     public function logout(Request $request){
      auth()->user()->tokens()->delete();
      return ['message'=>  'Logged out'
  
         ];
     }
+    
 }
