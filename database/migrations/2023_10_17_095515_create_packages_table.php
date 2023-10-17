@@ -15,7 +15,8 @@ return new class extends Migration
             $table->unsignedBigInteger('id_guide');
             $table->unsignedBigInteger('id_province');
             $table->timestamp('added_on');
-            // Add other columns as needed
+        
+            $table->string('title');
             $table->string('description');
             $table->timestamps();
            

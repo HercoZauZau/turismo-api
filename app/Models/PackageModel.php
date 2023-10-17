@@ -12,7 +12,7 @@ class PackageModel extends Model
   
 
     protected $primaryKey = ['id_province','id_guide'];
-    protected $fillable = [ 'id_province', 'id_guide',/* other columns */ ];
+    protected $fillable = [ 'id_province', 'id_guide','title'/* other columns */ ];
     // Define other relationships, scopes, etc. as needed
 
 
