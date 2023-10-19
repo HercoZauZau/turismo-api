@@ -13,6 +13,7 @@ class DestinoController extends Controller
      */
     public function index()
     {
+        
         return Destinos::all();
     }
 
@@ -37,6 +38,7 @@ class DestinoController extends Controller
     public function show(string $id)
     {
         return Destinos::find($id);
+      
     }
 
     /**
@@ -62,6 +64,7 @@ class DestinoController extends Controller
      */
     public function search(string $name)
     {
+      
         return Destinos::where('name', 'like', '%'.$name.'%' )->get();
     }
     

@@ -53,14 +53,16 @@ class AuthController extends Controller
 
       //If credentials are valid, retrieve the user_type from the database
       $userType = $user->user_type;
+      $userToken = $user-> userToken;
       //$guideID = $user->id;
       $idUser = $user->id;
       return response([
           'message' => 'Authentication successful',
           'user_type' => $userType,
           //
-          'user_id' => $idUser
-
+          'user_id' => $idUser,
+          session()->put('user_token', $userToken),
+          'token' => session('user_token'),
       ], 200);
 
 
@@ -73,9 +75,7 @@ class AuthController extends Controller
         return response ($response, 201);
     } 
 
-        public function userId(){
-            $userID = $user->id;
-        }
+        
   
     public function logout(Request $request){
      auth()->user()->tokens()->delete();
