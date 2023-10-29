@@ -28,12 +28,16 @@ use function Laravel\Prompts\search;
 
 // //Rota para listar um destino
 Route::get('/destinos/{id}',[DestinoController::class,'show']);
+Route::put('/destinos/{id}',[DestinoController::class,'update']);
+Route::get('/destinos',[DestinoController::class,'index']);
+Route::get('/destinos/search/{nome}',[DestinoController::class, 'search']);
+
 Route::post('/register',[AuthController::class, 'register']);
 Route::post('/login',[AuthController::class, 'login']);
 Route::post('/destinos',[DestinoController::class, 'store']);
 route::get('/users',[AuthController::class, 'users']);
 Route::get('/user/{id}',[AuthController::class,'show']);
-//sssss
+
 // //Rota Para acrescentar destinos
 
 
@@ -41,14 +45,11 @@ Route::get('/user/{id}',[AuthController::class,'show']);
 
 //Rotas protegidas
 Route::group(['middleware' => ['auth:sanctum']], function () {
-  Route::put('/destinos/{id}',[DestinoController::class,'update']);
-  Route::get('/destinos',[DestinoController::class,'index']);
- Route::get('/destinos/search/{nome}',[DestinoController::class, 'search']);
  
   Route::delete('/destinos/{id}',[DestinoController::class,'destroy']);
   Route::post('/logout',[AuthController::class, 'logout']);
   //Pacotes
-  Route::post('/addpackage',[PackageController::class, 'store']);
+  //Route::post('/addpackage',[PackageController::class, 'store']);
   Route::post('/addpacote',[PacoteController::class, 'store']);
   Route::get('/packages',[PacoteController::class, 'index']);
 
