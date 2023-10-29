@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
-
+use Laravel\Sanctum\PersonalAccessToken;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
     //Cadastro de usuario    
-    public $idUser;
+ public $guideID;
     public function Register(Request $request){
         $fields = $request->validate([
             'name' =>'required|string',
@@ -56,18 +56,27 @@ class AuthController extends Controller
       $userToken = $user-> userToken;
       //$guideID = $user->id;
       $idUser = $user->id;
+
+      $token = $user->createToken('myapptoken')->plainTextToken;
+      $user_token = $token;
+        //added
+        
+      $token = PersonalAccessToken::findToken($token);
+      $user1 = $token->tokenable;
+      $this->guideID = $user1->id;
+      $user_id = $user1->id;
+     
+      session()->put('user_id', $user_id);
+    
       return response([
           'message' => 'Authentication successful',
           'user_type' => $userType,
-          //
-          'user_id' => $idUser,
-          session()->put('user_token', $userToken),
-          'token' => session('user_token'),
+            'user_id' => session('user_id'), 
+            'token' =>  $user_token,
       ], 200);
 
 
-      
-        $token = $user->createToken('myapptoken')->plainTextToken;
+     
         $response = [
             'user' => $user,
             'token' => $token
@@ -83,5 +92,15 @@ class AuthController extends Controller
  
         ];
     }
+    public function users (Request $request){
+        return User::all();
+
+    } 
+    public function show(string $id)
+    {
+        return User::find($id);
+      
+    }
+  
     
 }

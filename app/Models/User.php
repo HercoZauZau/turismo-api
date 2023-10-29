@@ -49,4 +49,11 @@ class User extends Authenticatable
     public function provincias(){
         return $this-> belongsTo(provincia::class);
     }
+    public function index()
+{
+    $resources = User::all();
+
+    return response()->json(['resources' => $resources]);
+}
+
 }
