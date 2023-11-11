@@ -16,6 +16,8 @@ return new class extends Migration
             $table ->string("name");
             $table->unsignedBigInteger("province_id");
             $table  ->string("image_url");
+            //reviews stars
+            $table->double('stars_avg', 15, 8)->nullable();
             $table->timestamps();
           $table->foreign('province_id')->references('id')->on('provincias');
         

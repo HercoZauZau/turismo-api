@@ -13,6 +13,22 @@ return new class extends Migration
     {
         Schema::create('trips', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('id_guide');
+            $table->unsignedBigInteger('id_tourist');
+            $table->unsignedBigInteger('id_package');
+            $table->date('date');
+            $table->string('is_accepted');
+            //number of people
+            $table->integer('number_people');
+            //foreigns keys down here
+            $table->foreign('id_guide')->references('id')->on('users');
+            $table->foreign('id_tourist')->references('id')->on('users');
+            $table->foreign('id_package')->references('id')->on('packages');
+            
+
+            //price
+
+
             $table->timestamps();
         });
     }

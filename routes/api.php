@@ -27,7 +27,7 @@ use function Laravel\Prompts\search;
 //Rota para listar todos destinos - Retorna o controller index
 
 // //Rota para listar um destino
-Route::get('/destinos/{id}',[DestinoController::class,'show']);
+//Route::get('/destinos/{id}',[DestinoController::class,'show']);
 Route::put('/destinos/{id}',[DestinoController::class,'update']);
 Route::get('/destinos',[DestinoController::class,'index']);
 Route::get('/destinos/search/{nome}',[DestinoController::class, 'search']);
@@ -45,7 +45,11 @@ Route::get('/user/{id}',[AuthController::class,'show']);
 
 //Rotas protegidas
 Route::group(['middleware' => ['auth:sanctum']], function () {
- 
+ //trips routes
+  Route::post('/addtrip/{id_package}',[TripController::class, 'store']);
+  Route::get('/trips',[TripController::class, 'index']);
+  Route::get('/trips/{id}',[TripController::class, 'show']);
+  Route::get('/destinos/{id}',[DestinoController::class,'show']);
   Route::delete('/destinos/{id}',[DestinoController::class,'destroy']);
   Route::post('/logout',[AuthController::class, 'logout']);
   //Pacotes

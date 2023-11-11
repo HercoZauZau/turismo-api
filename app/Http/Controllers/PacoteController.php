@@ -16,10 +16,15 @@ class PacoteController extends Controller
             'title' => 'required',
             'description' => 'required',
             'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            'base_price' => 'required',
         ]);
 
         $user_id = auth()->id();
-        $image_path = $request->file('image')->store('image', 'public');
+        $image_path = 'package_default.jpg';
+
+        if ($request->hasFile('image')) {
+            $image_path = $request->file('image')->store('image', 'public');
+        }
 
         $packageData = [
             'id_guide' => $user_id,
@@ -28,7 +33,8 @@ class PacoteController extends Controller
             'image' => $image_path,
             'title' => $fields['title'],
             'description' => $fields['description'],
-            'base_price' => 0.0, // Set your default value or adjust as needed
+            //base price
+            'base_price' => $fields['base_price'],
         ];
 
         Package::create($packageData);

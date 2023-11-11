@@ -78,6 +78,7 @@ class AuthController extends Controller
       return response([
           'message' => 'Authentication successful',
           'user_type' => $userType,
+          'name' => $user->name,
             'user_id' => session('user_id'), 
             'token' =>  $user_token,
       ], 200);

@@ -21,8 +21,11 @@ return new class extends Migration
             $table->enum('gender', ['masculino', 'feminino']);
             $table->string('phone')->nullable();
             $table->string('email')->unique();
+            //review stars
+            $table->double('stars_avg', 15, 8)->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            
             $table->unsignedBigInteger('provincia_id');
             $table->rememberToken();
             $table->timestamps();
