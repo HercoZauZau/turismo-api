@@ -15,9 +15,10 @@ return new class extends Migration
             $table->unsignedBigInteger('id_guide');
             $table->unsignedBigInteger('id_province');
             $table->timestamp('added_on');
-        
+            $table->string('image')->nullable()->default('default.jpg');
             $table->string('title');
             $table->string('description');
+            $table->double('base_price', 15, 8);
             $table->timestamps();
            
             $table->foreign('id_guide')->references('id')->on('users');   

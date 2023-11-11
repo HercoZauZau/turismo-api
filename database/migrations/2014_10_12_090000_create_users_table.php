@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('image')->nullable()->default('default.jpg');
+
             $table->date('birth_day'); // date of birth
             $table->enum('user_type', ['admin', 'turista','guia'])->default('turista');
             $table->enum('gender', ['masculino', 'feminino']);

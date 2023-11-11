@@ -14,18 +14,25 @@ class AuthController extends Controller
     public function Register(Request $request){
         $fields = $request->validate([
             'name' =>'required|string',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             'user_type' =>'required|string',
             'birth_day' =>'nullable|date', // Allow null or valid date
             'provincia_id' =>'nullable|string',
             'email' => 'required|string|unique:users,email',
             'password' => 'required|string|confirmed'
         ]);
+        $image_path = 'default.jpg';
+
+        if ($request->hasFile('image')) {
+            $image_path = $request->file('image')->store('image', 'public');
+        }
         $user = User::create ([
             'name'=> $fields['name'],
             'email' => $fields['email'],
             'user_type' => $fields['user_type'],
            'provincia_id' => $fields['provincia_id'],
            'birth_day' => $fields['birth_day'],
+           'image' => $image_path,
             'password' => bcrypt($fields['password'])
         ]);
         $token = $user->createToken('myAppToken')-> plainTextToken;

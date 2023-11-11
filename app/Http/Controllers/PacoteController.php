@@ -11,20 +11,30 @@ class PacoteController extends Controller
 {
     public function store(Request $request)
     {
-       
-        $request->validate([
-            'id_province'=> 'Required',
-            'title'=> 'Required',
-            'description'=> 'Required',
-            
-
+        $fields = $request->validate([
+            'id_province' => 'required',
+            'title' => 'required',
+            'description' => 'required',
+            'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
-        // retrieve user id
-        $user_id =auth()->id();
-        $packageData = $request->all();
-        $packageData['id_guide'] = $user_id;
-    
-        return Package::create($packageData);
+
+        $user_id = auth()->id();
+        $image_path = $request->file('image')->store('image', 'public');
+
+        $packageData = [
+            'id_guide' => $user_id,
+            'id_province' => $fields['id_province'],
+            'added_on' => now(),
+            'image' => $image_path,
+            'title' => $fields['title'],
+            'description' => $fields['description'],
+            'base_price' => 0.0, // Set your default value or adjust as needed
+        ];
+
+        Package::create($packageData);
+
+        // You can return a response or redirect as needed.
+        return response('Package created successfully', 201);
     }
     public function index(Request $request)
 
