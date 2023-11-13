@@ -10,7 +10,7 @@ class Trip extends Model
     use HasFactory;
     //fillable
     protected $fillable = [
-        'id_guide',
+   
         //'id_package',
         'date',
        

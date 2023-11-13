@@ -17,7 +17,9 @@ return new class extends Migration
             $table->unsignedBigInteger('id_tourist');
             $table->unsignedBigInteger('id_package');
             $table->date('date');
-            $table->string('is_accepted');
+            $table->string('is_accepted')->default('pendente');
+          
+            $table->float('price');
             //number of people
             $table->integer('number_people');
             //foreigns keys down here
@@ -26,7 +28,7 @@ return new class extends Migration
             $table->foreign('id_package')->references('id')->on('packages');
             
 
-            //price
+            
 
 
             $table->timestamps();

@@ -4,9 +4,9 @@ use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\PackageController;
+//use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PacoteController;
-
+use App\Http\Controllers\TripController;
 use function Laravel\Prompts\search;
 
 /*
@@ -40,20 +40,21 @@ Route::get('/user/{id}',[AuthController::class,'show']);
 
 // //Rota Para acrescentar destinos
 
-
-
+//route::get('/packages2',[PacoteController::class, 'index2']);
+//Route::get('/trips',[TripController::class, 'index']);
 
 //Rotas protegidas
 Route::group(['middleware' => ['auth:sanctum']], function () {
  //trips routes
   Route::post('/addtrip/{id_package}',[TripController::class, 'store']);
-  Route::get('/trips',[TripController::class, 'index']);
+  
   Route::get('/trips/{id}',[TripController::class, 'show']);
   Route::get('/destinos/{id}',[DestinoController::class,'show']);
   Route::delete('/destinos/{id}',[DestinoController::class,'destroy']);
   Route::post('/logout',[AuthController::class, 'logout']);
   //Pacotes
-  //Route::post('/addpackage',[PackageController::class, 'store']);
+ 
+
   Route::post('/addpacote',[PacoteController::class, 'store']);
   Route::get('/packages',[PacoteController::class, 'index']);
 

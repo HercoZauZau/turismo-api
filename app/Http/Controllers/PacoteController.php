@@ -56,4 +56,10 @@ class PacoteController extends Controller
             return "User ID not found in session.";
         }
     }
+
+    //index
+    public function index2(Request $request)
+    {
+        return Package::all();
+    }
 }
