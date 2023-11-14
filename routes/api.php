@@ -53,8 +53,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
   Route::delete('/destinos/{id}',[DestinoController::class,'destroy']);
   Route::post('/logout',[AuthController::class, 'logout']);
   //Pacotes
- 
-
+  Route::put('/destinos/{id}',[DestinoController::class,'update']);
+  Route::put('/update-user/{id}',[AuthController::class,'update']);
   Route::post('/addpacote',[PacoteController::class, 'store']);
   Route::get('/packages',[PacoteController::class, 'index']);
 

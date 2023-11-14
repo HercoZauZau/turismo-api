@@ -30,6 +30,10 @@ class TripController extends Controller
         $guide_id = $package->id_guide;
         #add log guide id
   
+        #return id guide
+      
+        if($guide_id){
+
         
         $trip = Trip::create ([
             'id_package' => $id_package,
@@ -39,10 +43,14 @@ class TripController extends Controller
             'number_people' => $fields['number_people'],
             'price' => $package->base_price * $fields['number_people'],
         ]);
-
+ 
     
         // You can return a response or redirect as needed.
         return response('Trip created successfully', 201);
+        }
+        else{
+            return response('Trip not created', 404);
+        }
     }
     
     public function index()

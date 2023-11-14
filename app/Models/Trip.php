@@ -13,7 +13,11 @@ class Trip extends Model
    
         //'id_package',
         'date',
-       
+       'id_guide',
+         'id_tourist',
+         'id_package',
+         'price',
+         'is_accepted',
         'number_people',
        
     ];
