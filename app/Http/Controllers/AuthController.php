@@ -110,6 +110,12 @@ class AuthController extends Controller
         return User::all();
 
     } 
+    //return user image
+    public function userImage(Request $request){
+        $user_id = auth()->id();
+        $user = User::find($user_id);
+        return $user->image;
+    }
     public function show(string $id)
     {
         return User::find($id);

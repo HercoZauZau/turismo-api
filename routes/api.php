@@ -42,6 +42,8 @@ Route::get('/user/{id}',[AuthController::class,'show']);
 
 //route::get('/packages2',[PacoteController::class, 'index2']);
 //Route::get('/trips',[TripController::class, 'index']);
+//packages
+Route::get('/packages',[PacoteController::class, 'index']);
 
 //Rotas protegidas
 Route::group(['middleware' => ['auth:sanctum']], function () {
@@ -54,10 +56,20 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
   Route::post('/logout',[AuthController::class, 'logout']);
   //Pacotes
   Route::put('/destinos/{id}',[DestinoController::class,'update']);
+  //get user image
+  Route::get('/user-image',[AuthController::class,'userImage']);
   Route::put('/update-user/{id}',[AuthController::class,'update']);
   Route::post('/addpacote',[PacoteController::class, 'store']);
-  Route::get('/packages',[PacoteController::class, 'index']);
-
+  // return packages that belong to the guide
+Route::get('/packages-guide',[PacoteController::class, 'guidePackages']);
+// return trips that belong to the guide
+Route::get('/trips-guide',[TripController::class, 'guideTrips']);
+//return trips that belong to the tourist
+Route::get('/trips-tourist',[TripController::class, 'touristTrips']);
+//accept trip
+Route::put('/accept-trip/{id}',[TripController::class, 'acceptTrip']);
+//deny trip
+Route::put('/deny-trip/{id}',[TripController::class, 'denyTrip']);
   Route::get('/index',[PacoteController::class, 'index']);
 //  Route::get('/user_id',[AuthController::class, 'user_id']);
 });

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Package;
 use App\Models\User;
 use AuthController;
+
 class PacoteController extends Controller
 {
     public function store(Request $request)
@@ -42,10 +43,10 @@ class PacoteController extends Controller
         // You can return a response or redirect as needed.
         return response('Package created successfully', 201);
     }
-    public function index(Request $request)
 
+    public function index(Request $request)
     {
-       //return "session('user_id')";
+        //return "session('user_id')";
       
         //return Package::all();
         $user_id =auth()->id();
@@ -57,9 +58,21 @@ class PacoteController extends Controller
         }
     }
 
-    //index
-    public function index2(Request $request)
+    //guide packages
+    public function guidePackages(Request $request)
+
     {
-        return Package::all();
+       
+            $id = auth()->id();
+        
+        return Package::where('id_guide', $id)->get();
     }
+    
 }
+    
+      
+       
+
+   
+
+

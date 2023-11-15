@@ -52,7 +52,43 @@ class TripController extends Controller
             return response('Trip not created', 404);
         }
     }
-    
+    //return trips that belong to the guide
+    public function guideTrips()
+    {
+        $id = auth()->id();
+        $trips = Trip::where('id_guide', $id)->get();
+        return $trips;
+    }
+    //return trips that belong to the tourist
+    public function touristTrips()
+    {
+        $id = auth()->id();
+        $trips = Trip::where('id_tourist', $id)->get();
+        return $trips;
+    }
+    //change trip status to accepted
+    public function acceptTrip($id)
+    {
+        $trip = Trip::find($id);
+      
+        $trip->is_accepted = 'aceite';
+        $trip->save();
+        //send email notifying the user
+
+        return $trip;
+    }
+    // deny trip
+    public function denyTrip($id)
+    {
+        $trip = Trip::find($id);
+      
+        $trip->is_accepted = 'negado';
+        $trip->save();
+        //send email notifying the user
+        
+
+        return $trip;
+    }
     public function index()
     {
         return "Hello World";

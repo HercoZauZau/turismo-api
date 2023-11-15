@@ -52,6 +52,7 @@
 
                                 <p class="mt-4 text-gray-500 dark:text-gray-400 text-sm leading-relaxed">
                                     DAY OF UPDATE 2023-09-31
+                                    <img src="image/vxiIwKCr7LRsoH7L2KMicfpN5UJpPsYU3S5SxYDi.jpg" alt="" srcset="">
                                     Laravel has wonderful documentation covering every aspect of the framework. Whether you are a newcomer or have prior experience with Laravel, we recommend reading our documentation from beginning to end.
                                 </p>
                             </div>
