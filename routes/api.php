@@ -8,7 +8,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PacoteController;
 use App\Http\Controllers\TripController;
 use function Laravel\Prompts\search;
-
+use App\Http\Controllers\MailController;
+use App\Http\Controllers\ReviewController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -40,11 +41,15 @@ Route::get('/user/{id}',[AuthController::class,'show']);
 
 // //Rota Para acrescentar destinos
 
-//route::get('/packages2',[PacoteController::class, 'index2']);
-//Route::get('/trips',[TripController::class, 'index']);
+
+
+
 //packages
 Route::get('/packages',[PacoteController::class, 'index']);
-
+//Route::get('/send-mail', [SendMailController::class, 'index']);
+Route::get('sendbasicemail',[MailController::class,'basic_email']);
+Route::get('sendhtmlemail','MailController@html_email');
+Route::get('sendattachmentemail','MailController@attachment_email');
 //Rotas protegidas
 Route::group(['middleware' => ['auth:sanctum']], function () {
  //trips routes
@@ -72,4 +77,6 @@ Route::put('/accept-trip/{id}',[TripController::class, 'acceptTrip']);
 Route::put('/deny-trip/{id}',[TripController::class, 'denyTrip']);
   Route::get('/index',[PacoteController::class, 'index']);
 //  Route::get('/user_id',[AuthController::class, 'user_id']);
+
+Route::post('/reviews/{id}',[ReviewController::class,'ReviewGuide']);
 });
