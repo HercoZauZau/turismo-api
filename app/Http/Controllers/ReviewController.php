@@ -17,12 +17,22 @@ class ReviewController extends Controller
         $review->stars = $request->stars;
         $review->user_id = auth()->user()->id;
         $review->save();
+        
+        //count the number of reviews by guide
+        $count = Review::where('guide_id', $id)->count();
+        //sum all stars from reviews by guide
+        $sum = Review::where('guide_id', $id)->sum('stars');
+        //calculate the average
+        $average = $sum / $count;
+        //update guide's stars average with the average of all stars in reviews
+        $guide = User::find($id);
+        $guide->stars_avg = $average;
+        $guide->save();
+
+    
+
         return response()->json($review);
     }
-      
-           
-
-        
-    }
+}
    
         
