@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Package;
 use App\Models\User;
 use AuthController;
+use Illuminate\Support\Facades\Storage;
 
 class PacoteController extends Controller
 {
@@ -20,18 +21,19 @@ class PacoteController extends Controller
             'base_price' => 'required',
         ]);
 
-        $user_id = auth()->id();
-        $image_path = 'package_default.jpg';
+       // $user_id = auth()->id();
+       // $image_path = 'package_default.jpg';
+       $path = $request->file('image')->store('images');
 
         if ($request->hasFile('image')) {
             $image_path = $request->file('image')->store('image', 'public');
         }
 
         $packageData = [
-            'id_guide' => $user_id,
+            'id_guide' => $fields['id_guide'],
             'id_province' => $fields['id_province'],
             'added_on' => now(),
-            'image' => $image_path,
+            'image' => $path,
             'title' => $fields['title'],
             'description' => $fields['description'],
             //base price
@@ -58,6 +60,27 @@ class PacoteController extends Controller
         }
     }
 
+    public function PackageImage(Request $request,$id){
+        // Retrieve image path/URL associated with the user from the database
+     //find by auth id
+       $user = auth()->user();
+      
+      
+   
+        $user = User::find($id); 
+
+        if ($user) {
+          $imagePath = $user->image;
+
+          if ($imagePath) {
+              $imageUrl = Storage::url($imagePath);
+
+              return response()->json(['image_url' => $imageUrl]);
+          }
+      }
+
+      return response()->json(['message' => 'No image found for the user'], 404);
+  }
     //guide packages
     public function guidePackages(Request $request)
 

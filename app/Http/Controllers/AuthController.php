@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 class AuthController extends Controller
 {
     //Cadastro de usuario    
@@ -21,18 +22,16 @@ class AuthController extends Controller
             'email' => 'required|string|unique:users,email',
             'password' => 'required|string|confirmed'
         ]);
-        $image_path = 'default.jpg';
-
-        if ($request->hasFile('image')) {
-            $image_path = $request->file('image')->store('image', 'public');
-        }
+     //   $image_path = 'default.jpg';
+        $path = $request->file('image')->store('images');
+        
         $user = User::create ([
             'name'=> $fields['name'],
             'email' => $fields['email'],
             'user_type' => $fields['user_type'],
            'provincia_id' => $fields['provincia_id'],
            'birth_day' => $fields['birth_day'],
-           'image' => $image_path,
+           'image' => $path,
             'password' => bcrypt($fields['password'])
         ]);
         $token = $user->createToken('myAppToken')-> plainTextToken;
@@ -95,6 +94,7 @@ class AuthController extends Controller
     public function update(Request $request, string $id)
     {
         $user = User::find($id);
+      
         $user->update($request->all());
         return $user;
 
@@ -111,16 +111,39 @@ class AuthController extends Controller
 
     } 
     //return user image
-    public function userImage(Request $request){
-        $user_id = auth()->id();
-        $user = User::find($user_id);
-        return $user->image;
+    public function userImage(Request $request,$id){
+          // Retrieve image path/URL associated with the user from the database
+       //find by auth id
+         $user = auth()->user();
+        
+        
+     
+          $user = User::find($id); 
+
+          if ($user) {
+            $imagePath = $user->image;
+
+            if ($imagePath) {
+                $imageUrl = Storage::url($imagePath);
+
+                return response()->json(['image_url' => $imageUrl]);
+            }
+        }
+
+        return response()->json(['message' => 'No image found for the user'], 404);
     }
+      
+           
+         
+        
+    
+
     public function show(string $id)
     {
         return User::find($id);
       
     }
-  
+
     
+
 }

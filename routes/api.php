@@ -10,6 +10,8 @@ use App\Http\Controllers\TripController;
 use function Laravel\Prompts\search;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\ReviewController;
+use App\Mail\SampleMail;
+use Illuminate\Support\Facades\Mail;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -29,6 +31,15 @@ use App\Http\Controllers\ReviewController;
 
 // //Rota para listar um destino
 //Route::get('/destinos/{id}',[DestinoController::class,'show']);
+Route::post('/send-email', function () {
+  $recipientEmail = 'recipient@example.com'; // Replace this with the recipient's email
+
+  // Send the email
+  Mail::to($recipientEmail)->send(new SampleMail());
+
+  return response()->json(['message' => 'Email sent successfully']);
+});
+
 Route::put('/destinos/{id}',[DestinoController::class,'update']);
 Route::get('/destinos',[DestinoController::class,'index']);
 Route::get('/destinos/search/{nome}',[DestinoController::class, 'search']);
@@ -38,7 +49,7 @@ Route::post('/login',[AuthController::class, 'login']);
 Route::post('/destinos',[DestinoController::class, 'store']);
 route::get('/users',[AuthController::class, 'users']);
 Route::get('/user/{id}',[AuthController::class,'show']);
-
+Route::get('/reviews/{id}',[ReviewController::class,'getReviews']);
 // //Rota Para acrescentar destinos
 
 
@@ -50,22 +61,37 @@ Route::get('/packages',[PacoteController::class, 'index']);
 Route::get('sendbasicemail',[MailController::class,'basic_email']);
 Route::get('sendhtmlemail','MailController@html_email');
 Route::get('sendattachmentemail','MailController@attachment_email');
-//Rotas protegidas
-Route::group(['middleware' => ['auth:sanctum']], function () {
- //trips routes
-  Route::post('/addtrip/{id_package}',[TripController::class, 'store']);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**  */
+
+//trips routes
+Route::post('/addtrip/{id_package}',[TripController::class, 'store']);
   
-  Route::get('/trips/{id}',[TripController::class, 'show']);
-  Route::get('/destinos/{id}',[DestinoController::class,'show']);
-  Route::delete('/destinos/{id}',[DestinoController::class,'destroy']);
-  Route::post('/logout',[AuthController::class, 'logout']);
-  //Pacotes
-  Route::put('/destinos/{id}',[DestinoController::class,'update']);
-  //get user image
-  Route::get('/user-image',[AuthController::class,'userImage']);
-  Route::put('/update-user/{id}',[AuthController::class,'update']);
-  Route::post('/addpacote',[PacoteController::class, 'store']);
-  // return packages that belong to the guide
+Route::get('/trips/{id}',[TripController::class, 'show']);
+Route::get('/destinos/{id}',[DestinoController::class,'show']);
+Route::delete('/destinos/{id}',[DestinoController::class,'destroy']);
+Route::post('/logout',[AuthController::class, 'logout']);
+//Pacotes
+Route::put('/destinos/{id}',[DestinoController::class,'update']);
+//get user image
+Route::get('/user-image/{id}',[AuthController::class,'userImage']);
+Route::get('/pack-image/{id}',[AuthController::class,'userImage']);
+Route::put('/update-user/{id}',[AuthController::class,'update']);
+Route::post('/addpacote',[PacoteController::class, 'store']);
+// return packages that belong to the guide
 Route::get('/packages-guide',[PacoteController::class, 'guidePackages']);
 // return trips that belong to the guide
 Route::get('/trips-guide',[TripController::class, 'guideTrips']);
@@ -75,8 +101,14 @@ Route::get('/trips-tourist',[TripController::class, 'touristTrips']);
 Route::put('/accept-trip/{id}',[TripController::class, 'acceptTrip']);
 //deny trip
 Route::put('/deny-trip/{id}',[TripController::class, 'denyTrip']);
-  Route::get('/index',[PacoteController::class, 'index']);
+Route::get('/index',[PacoteController::class, 'index']);
 //  Route::get('/user_id',[AuthController::class, 'user_id']);
 
 Route::post('/reviews/{id}',[ReviewController::class,'ReviewGuide']);
+Route::post('/review-destiny/{id}',[ReviewController::class,'ReviewDestiny']);
+/** */
+//Rotas protegidas
+Route::group(['middleware' => ['auth:sanctum']], function () {
+ 
+
 });
