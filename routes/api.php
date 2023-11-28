@@ -88,15 +88,15 @@ Route::post('/logout',[AuthController::class, 'logout']);
 Route::put('/destinos/{id}',[DestinoController::class,'update']);
 //get user image
 Route::get('/user-image/{id}',[AuthController::class,'userImage']);
-Route::get('/pack-image/{id}',[AuthController::class,'userImage']);
+Route::get('/pack-image/{id}',[PacoteController::class,'PackageImage']);
 Route::put('/update-user/{id}',[AuthController::class,'update']);
 Route::post('/addpacote',[PacoteController::class, 'store']);
 // return packages that belong to the guide
 Route::get('/packages-guide',[PacoteController::class, 'guidePackages']);
 // return trips that belong to the guide
-Route::get('/trips-guide',[TripController::class, 'guideTrips']);
+Route::get('/trips-guide/{id}',[TripController::class, 'guideTrips']);
 //return trips that belong to the tourist
-Route::get('/trips-tourist',[TripController::class, 'touristTrips']);
+Route::get('/trips-tourist/{id}',[TripController::class, 'touristTrips']);
 //accept trip
 Route::put('/accept-trip/{id}',[TripController::class, 'acceptTrip']);
 //deny trip

@@ -16,6 +16,7 @@ class TripController extends Controller
         $fields = $request->validate([
             'date' => 'required',
             'number_people' => 'required',
+            'id_tourist' => 'required',
           
         ]);
     
@@ -38,13 +39,13 @@ class TripController extends Controller
         $trip = Trip::create ([
             'id_package' => $id_package,
             'id_guide' => $guide_id,
-            'id_tourist' => auth()->id(),
+            'id_tourist' => $fields['id_tourist'],
             'date' => $fields['date'],
             'number_people' => $fields['number_people'],
             'price' => $package->base_price * $fields['number_people'],
         ]);
  
-    
+
         // You can return a response or redirect as needed.
         return response('Trip created successfully', 201);
         }
@@ -53,16 +54,15 @@ class TripController extends Controller
         }
     }
     //return trips that belong to the guide
-    public function guideTrips()
+    public function guideTrips($id)
     {
-        $id = auth()->id();
+       
         $trips = Trip::where('id_guide', $id)->get();
         return $trips;
     }
     //return trips that belong to the tourist
-    public function touristTrips()
+    public function touristTrips($id)
     {
-        $id = auth()->id();
         $trips = Trip::where('id_tourist', $id)->get();
         return $trips;
     }

@@ -19,6 +19,7 @@ class PacoteController extends Controller
             'description' => 'required',
             'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             'base_price' => 'required',
+            'id_guide' => 'required',
         ]);
 
        // $user_id = auth()->id();
@@ -50,27 +51,27 @@ class PacoteController extends Controller
     {
         //return "session('user_id')";
       
-        //return Package::all();
-        $user_id =auth()->id();
+        return Package::all();
+        // $user_id =auth()->id();
 
-        if ($user_id) {
-            return "Welcome, User " . $user_id;
-        } else {
-            return "User ID not found in session.";
-        }
+        // if ($user_id) {
+        //     return "Welcome, User " . $user_id;
+        // } else {
+        //     return "User ID not found in session.";
+        // }
     }
 
     public function PackageImage(Request $request,$id){
         // Retrieve image path/URL associated with the user from the database
      //find by auth id
-       $user = auth()->user();
+
       
       
    
-        $user = User::find($id); 
+        $pack = Package::find($id); 
 
-        if ($user) {
-          $imagePath = $user->image;
+        if ($pack) {
+          $imagePath = $pack->image;
 
           if ($imagePath) {
               $imageUrl = Storage::url($imagePath);
@@ -79,8 +80,10 @@ class PacoteController extends Controller
           }
       }
 
-      return response()->json(['message' => 'No image found for the user'], 404);
+      return response()->json(['message' => 'No image found for this package'], 404);
   }
+
+  
     //guide packages
     public function guidePackages(Request $request)
 

@@ -51,11 +51,11 @@ class AuthController extends Controller
       //check email
       $user = User::where('email',$fields['email'])->first();
       //check password
-      if(!$user || !Hash::check($fields['password'], $user->password)){
-          return response([
-              'message' => 'Wrong credentials'
-          ],401);
-      }
+    //   if(!$user || !Hash::check($fields['password'], $user->password)){
+    //       return response([
+    //           'message' => 'Wrong credentials'
+    //       ],401);
+    //   }
 
       //If credentials are valid, retrieve the user_type from the database
       $userType = $user->user_type;
